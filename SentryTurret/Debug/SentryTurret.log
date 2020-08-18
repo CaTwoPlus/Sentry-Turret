@@ -1,0 +1,4 @@
+﻿  SentryTurret.cpp
+C:\Users\marschag\source\repos\SentryTurret\source\SentryTurret.cpp(13,19): warning C4129: 'S': unrecognized character escape sequence
+C:\Users\marschag\source\repos\SentryTurret\source\SentryTurret.cpp(13,19): warning C4129: 's': unrecognized character escape sequence
+  SentryTurret.vcxproj -> C:\Users\marschag\source\repos\SentryTurret\Debug\SentryTurret.exe
