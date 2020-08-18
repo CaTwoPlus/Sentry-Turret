@@ -1,0 +1,37 @@
+/**********************************************************************************************************************************************************************
+ * Disclaimer:
+ * This is a modified version of Mark Alexander Barros's Arduino Portal Turret - (v 1.0) source file, mainly used to write my own custom application 
+ * for serial communications practice, with C++, as kind of a boot camp project. With the modifications I made, sound is played back through the computer's speakers, 
+ * the Adafruit Wave Shield module is no longer needed, and running a Windows application while having the Arduino board plugged in is sufficient. I used my own mix 
+ * of sound files as well, and planning to implement features like an additional servo, motion tracking, more user interactions (ability to pick up the turret, 
+ * tilt it to the side so it shuts down) and more. Current version of this adaptation is v 0.5. 
+ * 
+ * Issues: 
+ * I use a SG90 micro servo, with the Servo.h library, and servo jittering is an issue for me. There are techniques of course for reducing the jitter, like getting rid
+ * of Arduino runtime and writing your own for better PWM signal resolution, limiting the servo's min and max range by a few degrees, detaching the servo after each 
+ * increment of movement and so on. Improvments in this aspect may come with a future update.  
+ *  
+ * License:
+ * This work is licenced under Crative Commons Attribution-ShareAlike 3.0 
+ * http://creativecommons.org/licenses/by-sa/3.0/
+ * THE LICENSOR OFFERS THE WORK AS-IS AND MAKES NO REPRESENTATIONS OR 
+ * WARRANTIES OF ANY KIND CONCERNING THE WORK, EXPRESS, IMPLIED, STATUTORY
+ * OR OTHERWISE, INCLUDING, WITHOUT LIMITATION, WARRANTIES OF TITLE, 
+ * MERCHANTIBILITY, FITNESS FOR A PARTICULAR PURPOSE, NONINFRINGEMENT, OR
+ * THE ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OF 
+ * ABSENCE OF ERRORS, WHETHER OR NOT DISCOVERABLE.
+ * 
+ * You can find out more information, like the required parts down below.
+ * 
+ * URL to Mark's project:
+ * https://www.themadhermit.net/geek-out-build-your-own-arduino-portal-turret/
+ * 
+ * My GitHub page:
+ * https://github.com/CaTwoPlus
+ * 
+ * Required external library:
+ *  NewPing.h - https://playground.arduino.cc/Code/NewPing/
+ * 
+ * Other files:
+ *  Portal Turret Sound Files were downloaded from: http://theportalwiki.com/wiki/Category:Turret_voice_files
+ *********************************************************************************************************************************************************************/
