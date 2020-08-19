@@ -21,7 +21,11 @@
  * THE ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OF 
  * ABSENCE OF ERRORS, WHETHER OR NOT DISCOVERABLE.
  * 
- * You can find out more information, like the required parts down below.
+ * In terms of parts, I used a 9V adapter, and a buck converter for powering the servo. Instead of a ping sensor, I used two HC-SR04 ultrasonic distance sensors. And, 
+ * of course I used electric tape to hold the whole machination together. Nah, only to hold the PIR sensor to the base frame (a slab of wood). The turret frame is just
+ * glued to the wood. 
+ * 
+ * You can find out more information down below.
  * 
  * URL to Mark's project:
  * https://www.themadhermit.net/geek-out-build-your-own-arduino-portal-turret/
