@@ -7,4 +7,6 @@ This is one of my C++ bootcamp projects, and most of the information about how t
 
 I included a separate license file as well, since the Arduino project is an adaptation, and the original project came with Creative Commons Attribution-ShareAlike 3.0.
 
-If you are interested in which parts are required to create your own mini Sentry Turret, please check the License.txt file.
+If you are interested in which parts are required to create your own mini Sentry Turret, please check the License.txt file in the Arduino folder.
+
+Here is a video, showing the final product in action: https://youtu.be/V_J0XNiA1x8
