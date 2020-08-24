@@ -9,7 +9,7 @@
  * Issues: 
  * I use a SG90 micro servo, with the Servo.h library, and servo jittering is an issue for me. There are techniques of course for reducing the jitter, like getting rid
  * of Arduino runtime and writing your own for better PWM signal resolution, limiting the servo's min and max range by a few degrees, detaching the servo after each 
- * increment of movement and so on. Improvments in this aspect may come with a future update.  
+ * increment of movement and so on. Improvements in this aspect may come with a future update.  
  *  
  * License:
  * This work is licenced under Crative Commons Attribution-ShareAlike 3.0 
