@@ -21,9 +21,8 @@
  * THE ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OF 
  * ABSENCE OF ERRORS, WHETHER OR NOT DISCOVERABLE.
  * 
- * In terms of parts, I used a 9V adapter, and a buck converter for powering the servo. Instead of a ping sensor, I used two HC-SR04 ultrasonic distance sensors. And, 
- * of course I used electric tape to hold the whole machination together. Nah, only to hold the PIR sensor to the base frame (a slab of wood). The turret frame is just
- * glued to the wood. 
+ * In terms of parts, I used a 9V adapter, and a buck converter for powering the servo. Instead of a ping sensor, I used two HC-SR04 ultrasonic distance sensors. 
+ * The turret frame is a pan/tilt camera platform. 
  * 
  * You can find out more information down below.
  * 
