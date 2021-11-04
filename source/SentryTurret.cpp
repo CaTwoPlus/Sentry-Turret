@@ -1,8 +1,6 @@
 #include <SentryTurret.hpp>
-
 // For using PlaySoundA()
 #pragma comment(lib, "winmm.lib")
-
 // Create class object with global scope
 cSerialPort* Arduino;
 
@@ -12,7 +10,6 @@ cSerialPort::cSerialPort(const char* pPortName)
     pStopArduinoOutput = { "Stop" };
     sFilePath = { "\SentryTurret\sounds" }; // Replace with 'sounds' folder's path 
     pIncomingData = { new char [iMaxDataLength] {} };
-
     bConnected = false;
     bIsDataSent = false;
 
@@ -41,7 +38,6 @@ cSerialPort::cSerialPort(const char* pPortName)
 
     // We're not yet connected
     this->bConnected = false;
-
     // Try to connect to the given port through CreateFileA
     this->Handler = CreateFileA(pPortName,
         GENERIC_READ | GENERIC_WRITE,
@@ -50,31 +46,22 @@ cSerialPort::cSerialPort(const char* pPortName)
         OPEN_EXISTING,
         FILE_ATTRIBUTE_NORMAL,
         NULL);
-
     // Check if the connection was successful
     if (this->Handler == INVALID_HANDLE_VALUE)
     {
         // If it was not, display an error. For tracing other errors, try with $err,hr pseudovariable during debugging.
-        if (GetLastError() == ERROR_FILE_NOT_FOUND) {
-
+        if (GetLastError() == ERROR_FILE_NOT_FOUND)
             printf("ERROR: Handle was not attached. Reason: %s not available.\n", pPortName);
-
-        }
         else
-        {
             printf("ERROR!!!");
-        }
     }
     else
     {
         // If we got connected, try to set communication parameters between Arduino and the app
         DCB dcbSerialParams = { 0 };
-
         // Try retrieve current control settings for Arduino 
         if (!GetCommState(this->Handler, &dcbSerialParams))
-        {
             printf("failed to get current serial parameters!");
-        }
         else
         {
             // Define serial connection parameters for the Arduino board
@@ -84,12 +71,9 @@ cSerialPort::cSerialPort(const char* pPortName)
             dcbSerialParams.Parity = NOPARITY;
             // Setting the DTR to Control_Enable ensures that the Arduino is properly reset upon establishing a connection
             dcbSerialParams.fDtrControl = DTR_CONTROL_ENABLE;
-
             // Set the parameters and check for their proper application
             if (!SetCommState(Handler, &dcbSerialParams))
-            {
                 printf("ALERT: Could not set Serial Port parameters");
-            }
             else
             {
                 // If everything went fine we're connected
@@ -115,7 +99,6 @@ void playSoundAFunc(std::string sFilePath, std::string sWavFile)
 {
     // 45 is the index of the first character of sWavFile within appended sFilePath
     int iNrOfFirstWavFileChar = 45;
-
     sFilePath.append(sWavFile);
     std::cout << sFilePath << "\n";
     PlaySoundA(sFilePath.c_str(), NULL, SND_NOSTOP);
@@ -128,7 +111,6 @@ void cSerialPort::PlayAudio(const char* pIncomingData, const int iMaxDataLength,
 {
     std::string incomingDataStr(pIncomingData, strnlen_s(pIncomingData, iMaxDataLength));
     std::cout << incomingDataStr;
-
     // std::find searches for first occurrence of a value in a container
     if (incomingDataStr.find("Ping") != std::string::npos)
     {
@@ -137,7 +119,6 @@ void cSerialPort::PlayAudio(const char* pIncomingData, const int iMaxDataLength,
         t1.join();
         incomingDataStr.erase();
     }
-
     if (incomingDataStr.find("turretDetectionGuns") != std::string::npos)
     {
         std::string sWavFile{ TurretDetectionWavFiles[0] };
@@ -146,38 +127,32 @@ void cSerialPort::PlayAudio(const char* pIncomingData, const int iMaxDataLength,
 
         incomingDataStr.erase();
     }
-    
     if (incomingDataStr.find("turretDetection") != std::string::npos)
     {
         std::string sWavFile{ TurretDetectionWavFiles[0] };
         std::thread t3(playSoundAFunc, sFilePath, sWavFile);
         t3.join();
-
         for (int i = 0; i < 4; i++)
         {
             std::string sWavFile{ TurretDetectionWavFiles[1] };
             std::thread t4(playSoundAFunc, sFilePath, sWavFile);
             t4.join();
         }
-
         sWavFile =  TurretDetectionWavFiles[3];
         std::thread t5(playSoundAFunc, sFilePath, sWavFile);
         t5.join();
-
         sWavFile = TurretDetectionWavFiles[GetRandomNumber(4, TurretDetectionWavFiles.size() - 1)];
         std::thread t6(playSoundAFunc, sFilePath, sWavFile);
         t6.join();
         incomingDataStr.erase();
     }
-
     if (incomingDataStr.find("turretActivation") != std::string::npos)
-    {   // Sounds from most of the arrays are randomized
+    {  
         std::string sWavFile{ TurretActivationWavFiles[GetRandomNumber(0, TurretActivationWavFiles.size() - 1)] };
         std::thread t7(playSoundAFunc, sFilePath, sWavFile);
         t7.join();
         incomingDataStr.erase();
     }
-
     if (incomingDataStr.find("turretSearching") != std::string::npos)
     {
         std::string sWavFile{ TurretSearchingWavFiles[GetRandomNumber(0, TurretSearchingWavFiles.size() - 1)] };
@@ -185,20 +160,17 @@ void cSerialPort::PlayAudio(const char* pIncomingData, const int iMaxDataLength,
         t8.join();
         incomingDataStr.erase();
     }
-
     if (incomingDataStr.find("turretPowerDown") != std::string::npos)
     {
         std::string sWavFile{ TurretPowerDownWavFiles[GetRandomNumber(0, TurretPowerDownWavFiles.size() - 1)] };
         std::thread t9(playSoundAFunc, sFilePath, sWavFile);
         t9.join();
         incomingDataStr.erase();
-
         sWavFile = TurretPowerDownWavFiles[15];
         std::thread t10(playSoundAFunc, sFilePath, sWavFile);
         t10.join();
         incomingDataStr.erase();
     }
-
     if (incomingDataStr.find("turretAttack") != std::string::npos)
     {
         std::string sWavFile{ TurretAttackWavFiles[GetRandomNumber(0, TurretAttackWavFiles.size() - 1)] };
@@ -206,7 +178,6 @@ void cSerialPort::PlayAudio(const char* pIncomingData, const int iMaxDataLength,
         t11.join();
         incomingDataStr.erase();
     }
-        
     if (incomingDataStr.find("turretMoved") != std::string::npos)
     {
         std::string sWavFile{ TurretMovedWavFiles[GetRandomNumber(0, TurretMovedWavFiles.size() - 1)] };
@@ -214,7 +185,6 @@ void cSerialPort::PlayAudio(const char* pIncomingData, const int iMaxDataLength,
         t12.join();
         incomingDataStr.erase();
     }
-
     if (incomingDataStr.find("turretDie") != std::string::npos)
     {
         std::string sWavFile{ TurretDie[GetRandomNumber(0, TurretDie.size() - 1)] };
@@ -244,32 +214,21 @@ int cSerialPort::ReadSerialPort(const char* pBuffer, unsigned int iNbOfChars)
     unsigned int iToRead;
     // Size of buffer paramater
     int iSizeOfIncomingData{ static_cast<int>(sizeof(pBuffer)) };
-
     // Use ClearCommError() to retrieve information about communications error and report the current status of a communications device
     ClearCommError(this->Handler, &this->Errors, &this->Status);
-    
     // Check if there is something to read
     if (this->Status.cbInQue > 0)
     {
         // If yes, we check if there is enough data to read the required number of chars
         // If not, we will read only the available characters to prevent locking of the application
         if (this->Status.cbInQue > iNbOfChars)
-        {
             iToRead = iNbOfChars;
-        }
         else
-        {
             iToRead = this->Status.cbInQue;
-        }
-        
         // Try to read the required number of chars, and return the number of read bytes on success
         if (ReadFile(this->Handler, (LPVOID)pBuffer, iToRead, &BytesRead, NULL))
-        {
             return BytesRead;
-        }
-        
     }
-    
     // If nothing has been read, or an error was detected, return 0
     return 0;
 }
@@ -277,7 +236,6 @@ int cSerialPort::ReadSerialPort(const char* pBuffer, unsigned int iNbOfChars)
 bool cSerialPort::WriteSerialPort(const char* pBuffer, unsigned int iNbOfChars)
 {
     DWORD bytesSend;
-
     // Try to write contents of the buffer on the serial port
     if (!WriteFile(this->Handler, (void*)pBuffer, iNbOfChars, &bytesSend, 0))
     {
@@ -301,7 +259,6 @@ void cSerialPort::ExampleReceiveData(void)
 {
     int iReadResult = Arduino->cSerialPort::ReadSerialPort(pIncomingData, iMaxDataLength);
     std::string IncomingDataStr(pIncomingData, strnlen_s(pIncomingData, iMaxDataLength));
-
     // Send "Play" to Arduino
     Arduino->WriteSerialPort(pWriteToArduino, iWriteToArduinoLength);
     // Check if Arduino replies, and play the audio file
@@ -312,7 +269,6 @@ void cSerialPort::ExampleReceiveData(void)
     }
     // Send "Stop" to Arduino
     Arduino->WriteSerialPort(pStopArduinoOutput, iWriteToArduinoLength);
-
     Sleep(50);
 }
 
@@ -326,14 +282,10 @@ void cSerialPort::AutoConnect(void)
             std::cout << ".";
             Arduino = new cSerialPort(pPortName);
         }
-
         // Checking if Arduino is connected or not
-        if (Arduino->cSerialPort::IsConnected()) {
+        if (Arduino->cSerialPort::IsConnected())
             std::cout  << std::endl << "Connection established at port " << pPortName << std::endl;
-        }
-
         PurgeComm(Arduino->Handler, PURGE_RXCLEAR);
-        
         while(Arduino->cSerialPort::IsConnected()) ExampleReceiveData();     
     }
 }
@@ -342,8 +294,6 @@ int main(int argc, char* argv[])
 {
     // Set initial seed value to system clock
     std::srand(static_cast<unsigned int>(std::time(nullptr))); 
-
     Arduino = new cSerialPort(pPortName);
-    
     Arduino->AutoConnect();
 }
