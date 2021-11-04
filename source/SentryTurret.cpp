@@ -1,6 +1,6 @@
 #include <SentryTurret.hpp>
-// For using PlaySoundA()
 #pragma comment(lib, "winmm.lib")
+
 // Create class object with global scope
 cSerialPort* Arduino;
 
